@@ -9,10 +9,20 @@ cd /projects/ENGG1500.1 ls
 ------------------*/
 
 int main() {
-   char message[1024];                  //initialise an array of length 1024, used to remember our string
+   char Imessage[1024];                  //initialise an array of length 1024, used to remember our string
+   char Omessage[1024];                  //
    FILE *input = fopen("input.txt", "r");
-   fgets(message, 1024, input);
+   FILE *output = fopen("output.txt", "w");
+   int n = 1, key = 0;
+   
+   fscanf(input, "%c", Imessage);
 //   printf("What is your message?\n");   //ask user what they would like to encode
-   printf("You gave: %s\n", message);
+   if (key = 0) {
+       Omessage == Imessage;
+   }
+   
+   printf("You gave: %s\n", Imessage);
+   
+   fprintf(Omessage, Omessage, output);
    return 0;
 }
