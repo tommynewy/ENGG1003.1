@@ -14,14 +14,16 @@ int main() {
     char Omessage[100];                  //
     //FILE *input = fopen("input.txt", "r");
     //FILE *output = fopen("output.txt", "w");
-    int n = 0, key = 0;
+    int n, key;
     
     printf("What is your message?\n");
-    scanf("%c", Imessage);
+    gets(Imessage);
+    printf("What key?\n");
+    scanf("%d", &key);
    //fscanf(input, "%c", Imessage);
 //   printf("What is your message?\n");   //ask user what they would like to encode
    
-    while (n <= 100) {
+    /*while (n <= 100) {
         if (key = 0) {
             Omessage[n] = Imessage[n];
             break;
@@ -43,7 +45,7 @@ int main() {
         }
         ++n;
     }
-   
+   */
    printf("You gave: %s\n", Imessage);
    
    printf("Encoded as: %s\n", Omessage);
