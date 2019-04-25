@@ -12,42 +12,34 @@ ls
 int main() {
     char Imessage[100];                  //initialise an array of length 1024, used to remember our string
     char Omessage[100];                  //
-    //FILE *input = fopen("input.txt", "r");
-    //FILE *output = fopen("output.txt", "w");
     int n, key;
     
-    printf("What is your message?\n");
-    gets(Imessage);
-    printf("What key?\n");
-    scanf("%d", &key);
-   //fscanf(input, "%c", Imessage);
-//   printf("What is your message?\n");   //ask user what they would like to encode
-   
-    /*while (n <= 100) {
+    key = 2;
+    
+    scanf(" %[^\n]s\n", Imessage);
+    while (n < 100) {
+        Omessage[n] = Imessage[n];
+        n++;
+    }
+
+    printf("The output is: %s\n", Omessage);
+    /*for (n = 0; n <= 100; ++n) {
         if (key = 0) {
             Omessage[n] = Imessage[n];
-            break;
-        } else if (Imessage[n] <= 90 - key) {
+        } else if (Imessage[n] <= 'Z' - key) {
             Omessage[n] = Imessage[n] + key;
-            break;
-        } else if (Imessage[n] > 90 - key) {
-            Omessage[n] = 65 + (key - (90 - Imessage[n]));
-            break;
-        } else if (Imessage[n] < 122 - key) {
+        } else if (Imessage[n] > 'Z' - key) {
+            Omessage[n] = 'A' + (key - (90 - Imessage[n]));
+        } else if (Imessage[n] < 'z' - key) {
             Omessage[n] = Imessage[n] - 32 + key;
-            break;
-        } else if (Imessage[n] > 122 - key) {
+        } else if (Imessage[n] > 'z' - key) {
             Omessage[n] = 68 + (122 - Imessage[n]);
-            break;
         } else {
             Omessage[n] = Imessage[n];
             break;
         }
-        ++n;
-    }
-   */
-   printf("You gave: %s\n", Imessage);
-   
-   printf("Encoded as: %s\n", Omessage);
+    }*/
+   printf("hi1\n");
+   printf("hi2\n");
    return 0;
 }
