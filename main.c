@@ -11,35 +11,31 @@ ls
 
 int main() {
     char Imessage[100];                  //initialise an array of length 1024, used to remember our string
-    char Omessage[100];                  //
+    char Omessage[100], temp;                  //
     int n, key;
     
-    key = 2;
+    printf("Enter a message to encrypt: \n");
+    scanf("%s", Imessage);
+    printf("Enter a key: \n");
+    scanf("%d", &key);
     
-    scanf(" %[^\n]s\n", Imessage);
-    while (n < 100) {
-        Omessage[n] = Imessage[n];
-        n++;
-    }
-
-    printf("The output is: %s\n", Omessage);
-    /*for (n = 0; n <= 100; ++n) {
+    for (n = 1; Imessage[n] != '\n'; ++n) {
+        temp = Imessage[n];
         if (key = 0) {
-            Omessage[n] = Imessage[n];
-        } else if (Imessage[n] <= 'Z' - key) {
-            Omessage[n] = Imessage[n] + key;
-        } else if (Imessage[n] > 'Z' - key) {
-            Omessage[n] = 'A' + (key - (90 - Imessage[n]));
-        } else if (Imessage[n] < 'z' - key) {
-            Omessage[n] = Imessage[n] - 32 + key;
-        } else if (Imessage[n] > 'z' - key) {
-            Omessage[n] = 68 + (122 - Imessage[n]);
-        } else {
-            Omessage[n] = Imessage[n];
             break;
+        } else if (temp >= 'A' && temp <= 'Z') {
+            temp = temp + key;
+            if (temp > 'Z') {
+                temp = temp - 'Z' + 'A' - 1;
+            }
+        } else if (temp >= 'a' && temp <= 'z') {
+            temp = temp + key;
+            if (temp > 'z') {
+                temp = temp - 'z' + 'a' - 1;
+            }
         }
-    }*/
-   printf("hi1\n");
-   printf("hi2\n");
-   return 0;
+        Omessage[n] = temp;
+    }
+    printf("Your message is: %s\n", Omessage);
+    return 0;
 }
