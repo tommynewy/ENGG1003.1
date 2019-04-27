@@ -1,52 +1,52 @@
 #include <stdio.h>
 
 int main() {
-    char Imessage[1024];                        //initialise an array of length 1024, the string of the original 'Input', I message
-    char Omessage[1024], temp;                  //initialise an array of length 1024, the srting of the resulting 'Output', O message. Also a temporary for keeping the character when working with it
-    char alphabet[30];
-    int n, key, i;                              //initialise three integers, a counter n, the rotation key, and the program function i (line 20)
-    FILE *output = fopen("output.txt", "w");    //initialising a write only file as the output (output.txt)
-    FILE *cue = fopen("key.txt", "r");          //initialising a read only file for function (i, line 20) and key (line 21). cue is random (couldn't be key)
+    char Imessage[1024];                            //initialise an array of length 1024, the string of the original 'Input', I message
+    char Omessage[1024], temp;                      //initialise an array of length 1024, the srting of the resulting 'Output', O message. Also a temporary for keeping the character when working with it
+    char alphabet[30];                              //initialise an arry of length 1024 to hold the alphabet key for substitution cipher
+    int n, key, i;                                  //initialise three integers, a counter n, the rotation key, and the program function i (line 20)
+    FILE *output = fopen("output.txt", "w");        //initialising a write only file as the output (output.txt)
+    FILE *cue = fopen("key.txt", "r");              //initialising a read only file for function (i, line 20) and key (line 21). cue is random (couldn't be key)
     FILE *op = fopen("operation.txt", "r");
     
     printf("Operation codes: Rotation Encyrption (1), Rotation Decryption (2), Substitution Encryption (3), Substitution Decryption(4)\nThis is to be used as the first character of key.txt\n");
-    fscanf(cue, "%d", &key);                    //(above line is self explainitory) retrieve i & key from key.txt
-    fgets(Imessage, sizeof Imessage, stdin);    //retrieve the input message from standard input (with a max size of Imessage)
-    fscanf(op, "%d", &i);
-    printf("The message is: %s\n", Imessage);   //printing the given message back (never works) for personal
+    fscanf(cue, "%d", &key);                        //(above line is self explainitory) retrieve i & key from key.txt
+    fgets(Imessage, sizeof Imessage, stdin);        //retrieve the input message from standard input (with a max size of Imessage)
+    fscanf(op, "%d", &i);                           //retrieve operator code (explained in README)
+    printf("The message is: %s\n", Imessage);       //printing the given message back (never works) for personal
     
-    if (i == 1) {                               //if user wants rotation encyrption
-        printf("Key: %d Operation: %d\n", key, i);   //print key and function code for personal checking
-        for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL ie the string ends
+    if (i == 1) {                                   //if user wants rotation encyrption
+        printf("Key: %d Operation: %d\n", key, i);  //print key and function code for personal checking
+        for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL (the string ends)
             temp = Imessage[n];                     //temporary character is character of input at position n
             if (temp >= 'A' && temp <= 'Z') {       //if the character is a capital letter (between A and Z in the ASCII chart)
                 temp = temp + key;                  //add the key to the character
                 if (temp > 'Z') {                   //if this character is no longer a capital letter (beyond Z in the ASCII chart)
                     temp = temp - 'Z' + 'A' - 1;    //character - Z (90) results in a number from 1-24 (leftover from key) then added to A - 1 (to account for starting at 0)
-                }
+                }                                   //ENDIF
                 Omessage[n] = temp;                 //output at position n is this character
             } else if (temp >= 'a' && temp <= 'z') {//or if character is lower case letter
                 temp = temp + key;                  //add key to character
                 if (temp > 'z') {                   //if new character is not a lteer (beyond z in the ASCII chart)
                     temp = temp - 'z' + 'a' - 1;    //character - z(122) results in a number leftover from key, then A is added - 1
-                }
+                }                                   //ENDIF
                 Omessage[n] = temp;                 //output at position n is this character
             } else {                                //if the character is anything else (spaces, punctuation)
                 Omessage[n] = temp;                 //output at position n is this character
-            }
-        }
+            }                                       //ENDIF
+        }                                           //ENDLOOP
     } else if (i == 2) {                            //user wants rotation decyption 
-        printf("Key: %d Operation: %d\n", key, i);   //print key and function code for personal checking
-        for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL ie the string ends
+        printf("Key: %d Operation: %d\n", key, i);  //print key and function code for personal checking
+        for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL (the string ends)
             temp = Imessage[n];                     //temporary character is character of input at position n
             if (temp >= 'A' && temp <= 'Z') {       //if the character is a capital letter (between A and Z in the ASCII chart)
-                temp = temp - key;                  //add the key to the character
-                if (temp < 'A') {                   //if this character is no longer a capital letter (beyond Z in the ASCII chart)
+                temp = temp - key;                  //take key from character
+                if (temp < 'A') {                   //if this character is no longer a capital letter (beyond A in the ASCII chart)
                     temp = temp + 'Z' - 'A' + 1;    //character 
-                }
+                }                                   //ENDIF
                 Omessage[n] = temp;                 //output at position n is this character
-            } else if (temp >= 'a' && temp <= 'z') {
-                temp = temp - key;
+            } else if (temp >= 'a' && temp <= 'z') {//if the character is a lower case letter
+                temp = temp - key;                  //
                 if (temp < 'a') {
                     temp = temp + 'z' - 'a' + 1;
                 }
