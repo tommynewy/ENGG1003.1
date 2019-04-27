@@ -1,34 +1,22 @@
 #include <stdio.h>
 
-/*-----------------
-Cipher algorithms (currently only rotation encoding & decoding)
-
-User instructions: read & use the terminal using the below commands:
-cd /projects/ENGG1500.1 
-ls h
-./a.out
-------------------*/
-
 int main() {
     char Imessage[1024];                        //initialise an array of length 1024, the string of the original 'Input', I message
     char Omessage[1024], temp;                  //initialise an array of length 1024, the srting of the resulting 'Output', O message. Also a temporary for keeping the character when working with it
     char alphabet[30];
     int n, key, i;                              //initialise three integers, a counter n, the rotation key, and the program function i (line 20)
-    FILE *input = fopen("input.txt", "r");      //initialising a read only file as the input (input.txt)
     FILE *output = fopen("output.txt", "w");    //initialising a write only file as the output (output.txt)
-    FILE *cue = fopen("key.txt", "r");          //initialising a read only file for function (i, line 20) and key (line 21). cue is random
-    FILE *skey = fopen("Skey.txt", "r");
+    FILE *cue = fopen("key.txt", "r");          //initialising a read only file for function (i, line 20) and key (line 21). cue is random (couldn't be key)
+    FILE *op = fopen("operation.txt", "r");
     
-    printf("Function codes: Rotation Encyrption (1), Rotation Decryption (2), Substitution Encryption (3), Substitution Decryption(4)\nThis is to be used as the first character of key.txt\n");
-    fscanf(cue, "%d %d", &i, &key);             //(above line is self explainitory) retrieve i & key from key.txt
-    //fscanf(input,"%s\n", Imessage);           //terminal testing
+    printf("Operation codes: Rotation Encyrption (1), Rotation Decryption (2), Substitution Encryption (3), Substitution Decryption(4)\nThis is to be used as the first character of key.txt\n");
+    fscanf(cue, "%d", &key);                    //(above line is self explainitory) retrieve i & key from key.txt
     fgets(Imessage, sizeof Imessage, stdin);    //retrieve the input message from standard input (with a max size of Imessage)
-    /*printf("Enter a key: \n");                //terminal testing
-    scanf("%d", &key);*/                        //terminal testing
-    //key = 2;                                    //hardcode of key 2 for desk checking & testing
+    fscanf(op, "%d", &i);
     printf("The message is: %s\n", Imessage);   //printing the given message back (never works) for personal
+    
     if (i == 1) {                               //if user wants rotation encyrption
-        printf("Key: %d Function: %d\n", key, i);   //print key and function code for personal checking
+        printf("Key: %d Operation: %d\n", key, i);   //print key and function code for personal checking
         for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL ie the string ends
             temp = Imessage[n];                     //temporary character is character of input at position n
             if (temp >= 'A' && temp <= 'Z') {       //if the character is a capital letter (between A and Z in the ASCII chart)
@@ -39,16 +27,16 @@ int main() {
                 Omessage[n] = temp;                 //output at position n is this character
             } else if (temp >= 'a' && temp <= 'z') {//or if character is lower case letter
                 temp = temp + key;                  //add key to character
-                if (temp > 'z') {                   
-                    temp = temp - 'z' + 'a' - 1;
+                if (temp > 'z') {                   //if new character is not a lteer (beyond z in the ASCII chart)
+                    temp = temp - 'z' + 'a' - 1;    //character - z(122) results in a number leftover from key, then A is added - 1
                 }
                 Omessage[n] = temp;                 //output at position n is this character
             } else {                                //if the character is anything else (spaces, punctuation)
                 Omessage[n] = temp;                 //output at position n is this character
             }
         }
-    } else if (i == 2) {
-        printf("Key: %d Function: %d\n", key, i);   //print key and function code for personal checking
+    } else if (i == 2) {                            //user wants rotation decyption 
+        printf("Key: %d Operation: %d\n", key, i);   //print key and function code for personal checking
         for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL ie the string ends
             temp = Imessage[n];                     //temporary character is character of input at position n
             if (temp >= 'A' && temp <= 'Z') {       //if the character is a capital letter (between A and Z in the ASCII chart)
@@ -68,9 +56,8 @@ int main() {
             }
         }
     } else if (i == 3 || i ==4) {
-        fscanf(skey, "%s", alphabet);
-        //scanf(cue, "%d %s", &i, &alphabet);             //(above line is self explainitory) retrieve i & key from key.txt
-        printf("Key: %s Function: %d\n", alphabet, i);   //print key and function code for personal checking
+        fscanf(cue, "%s", alphabet);
+        printf("Key: %s Operation: %d\n", alphabet, i);   //print key and function code for personal checking
         if (i == 3) {
             for (n = 0; Imessage[n] != '\0'; n++) {
                 temp = Imessage[n];
@@ -132,13 +119,76 @@ int main() {
                 Omessage[n] = temp;
             }
         } else if (i == 4) {
-            printf("lol 4");
+            for (n = 0; Imessage[n] != '\0'; n++) {
+                temp = Imessage[n];
+                if (temp == alphabet[0]) {
+                    temp = 'A';
+                } else if (temp == alphabet[1]) {
+                    temp = 'B';
+                } else if (temp == alphabet[2]) {
+                    temp = 'C';
+                } else if (temp == alphabet[3]) {
+                    temp = 'D';
+                } else if (temp == alphabet[4]) {
+                    temp = 'E';
+                } else if (temp == alphabet[5]) {
+                    temp = 'F';
+                } else if (temp == alphabet[6]) {
+                    temp = 'G';
+                } else if (temp == alphabet[7]) {
+                    temp = 'H';
+                } else if (temp == alphabet[8]) {
+                    temp = 'I';
+                } else if (temp == alphabet[9]) {
+                    temp = 'J';
+                } else if (temp == alphabet[10]) {
+                    temp = 'K';
+                } else if (temp == alphabet[11]) {
+                    temp = 'L';
+                } else if (temp == alphabet[12]) {
+                    temp = 'M';
+                } else if (temp == alphabet[13]) {
+                    temp = 'N';
+                } else if (temp == alphabet[14]) {
+                    temp = 'O';
+                } else if (temp == alphabet[15]) {
+                    temp = 'P';
+                } else if (temp == alphabet[16]) {
+                    temp = 'Q';
+                } else if (temp == alphabet[17]) {
+                    temp = 'R';
+                } else if (temp == alphabet[18]) {
+                    temp = 'S';
+                } else if (temp == alphabet[19]) {
+                    temp = 'T';
+                } else if (temp == alphabet[20]) {
+                    temp = 'U';
+                } else if (temp == alphabet[21]) {
+                    temp = 'V';
+                } else if (temp == alphabet[22]) {
+                    temp = 'W';
+                } else if (temp == alphabet[23]) {
+                    temp = 'X';
+                } else if (temp == alphabet[24]) {
+                    temp = 'Y';
+                } else if (temp == alphabet[25]) {
+                    temp = 'Z';
+                } else { 
+                    temp = temp;
+                }
+                Omessage[n] = temp;
+            }
         }
     } else {
-        printf("Function selection error");
+        printf("Operation selection error");
     }
     
-    printf("Encryption is: %s\n", Omessage);       //print the resulting encyrption to the terminal (for personal testing use)
+    if (i == 1 || i == 3) {
+        printf("Encryption is: %s\n", Omessage);       //print the resulting encyrption to the terminal (for personal testing use)
+    } else if (i == 2 || i == 4) {
+        printf("Decryption is: %s\n", Omessage);
+    }
+
     fprintf(output, "%s\n", Omessage);          //write the resulting encyrption to the output file
     return 0;
 }
