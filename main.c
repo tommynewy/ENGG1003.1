@@ -3,8 +3,8 @@
 int main() {
     char Imessage[1024];        //initialise an array of length 1024, the string of the original 'Input', I message
     char Omessage[1024], temp;      //initialise an array of length 1024, the srting of the resulting 'Output', O message. Also a temporary for keeping the character when working with it
-    char alphabet[26];              //initialise an arry of length 26 to hold the alphabet key for substitution cipher
-    int n, key, i;                  //initialise three integers, a counter n, the rotation key, and the program function i (line 12)
+    char alphabet[26], sum[26];     //initialise two arrays of length 26 to hold the alphabet key for substitution cipher and the count of letters
+    int n, key, i, y, max;          //initialise five integers, a counter (n), the rotation key, the program function (i) (line 12), a temporary integer (y) that acts as a pointer in keyless rotation decryption, and storage for the max count
     FILE *output = fopen("output.txt", "w");        //initialising a write only file as the output (output.txt)
     FILE *cue = fopen("key.txt", "r");              //initialising a read only file for key (key.txt). cue is random (couldn't be key)
     FILE *op = fopen("operation.txt", "r");         //initialising a read only file for program operation (i, line 12) described in README (operation.txt)
@@ -41,11 +41,31 @@ int main() {
             }                                       //ENDIF
         }                                           //ENDLOOP
     } else if (i == 2) {                            //user wants rotation decyption
-        if (0 > key || key > 25) {                  //check key is within range
+        if ((0 > key || key > 25) && key != 80) {                  //check key is within range
             printf("Error with value of key. %d is not in the range 0-25", key);
             return 0;                               //print error & end program
+        } else if (alphabet == '\0') {                   //if key is NUL (ie no key given)
+            for (n = 0; Imessage[n] != '\0'; n++) {
+                temp = Imessage[n];
+                if (temp >= 'A' && temp <= 'Z') {
+                    y = temp - 'A';
+                    sum[y]++;
+                } else if (temp >= 'a' && temp <= 'z') {
+                    y = temp - 'a';
+                    sum[y]++;
+                }
+            }
+            max = 0;
+            for (n = 0; n < 26; n++) {//find which letter occurs most
+                if (sum[max] < sum[n]) {
+                    max = n;
+                }
+            }
+            printf("Fuck");
+            key = max - 4;//adjust key accordingly e = 4
         }                                           //ENDIF
         printf("Key: %d Operation: %d\n", key, i);  //print key and function code for personal checking
+        n = 0;
         for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL (the string ends)
             temp = Imessage[n];                     //temporary character is character of input at position n
             if (temp >= 'A' && temp <= 'Z') {       //if the character is a capital letter (between A and Z in the ASCII chart)
