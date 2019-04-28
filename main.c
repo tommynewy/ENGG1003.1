@@ -41,10 +41,10 @@ int main() {
             }                                       //ENDIF
         }                                           //ENDLOOP
     } else if (i == 2) {                            //user wants rotation decyption
-        if ((0 > key || key > 25) && key != 80) {                  //check key is within range
+        if ((0 > key || key > 25) && key != 80) {   //check key is within range
             printf("Error with value of key. %d is not in the range 0-25", key);
             return 0;                               //print error & end program
-        } else if (alphabet == '\0') {                   //if key is NUL (ie no key given)
+        } else if (cue != NULL) {                   //if key is NUL (ie no key given)
             for (n = 0; Imessage[n] != '\0'; n++) {
                 temp = Imessage[n];
                 if (temp >= 'A' && temp <= 'Z') {
@@ -61,8 +61,7 @@ int main() {
                     max = n;
                 }
             }
-            printf("Fuck");
-            key = max - 4;//adjust key accordingly e = 4
+            key = max - 4;//adjust key accordingly e = 4*/
         }                                           //ENDIF
         printf("Key: %d Operation: %d\n", key, i);  //print key and function code for personal checking
         n = 0;
