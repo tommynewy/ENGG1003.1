@@ -44,24 +44,47 @@ int main() {
         if ((0 > key || key > 25) && key != 80) {   //check key is within range
             printf("Error with value of key. %d is not in the range 0-25", key);
             return 0;                               //print error & end program
-        } else if (cue != NULL) {                   //if key is NUL (ie no key given)
-            for (n = 0; Imessage[n] != '\0'; n++) {
-                temp = Imessage[n];
-                if (temp >= 'A' && temp <= 'Z') {
-                    y = temp - 'A';
-                    sum[y]++;
-                } else if (temp >= 'a' && temp <= 'z') {
-                    y = temp - 'a';
-                    sum[y]++;
-                }
-            }
+        } else if (cue != NULL) {                   //if key is NULL (ie no key given)
+            for (n = 0; Imessage[n] != '\0'; n++) { //loop starting counter n at zero, incrementing by 1 until string ends. this loop counts the occurence of all characters
+                temp = Imessage[n];                 //temporary character
+                if (temp >= 'A' && temp <= 'Z') {   //character is upper case letter
+                    y = temp - 'A';                 //y is number of letters position in the alphabet
+                    sum[y]++;                       //increment sum of element y by one
+                } else if (temp >= 'a' && temp <= 'z') {    //character is lower case letter
+                    y = temp - 'a';                         //letters position in alphabet
+                    sum[y]++;                               //increment sum of letter
+                }                                           //ENDIF
+            }                                               //ENDLOOP
             max = 0;
+            int max2 = 0, max3 = 0, max4 = 0, max5 = 0, max6 = 0;
+            //etaoin   ietl
             for (n = 0; n < 26; n++) {//find which letter occurs most
                 if (sum[max] < sum[n]) {
                     max = n;
+                } else if (sum[max2] < sum[n] && sum[max2] < sum[max]) {
+                    max2 = n;
+                } else if (sum[max3] < sum[n] && sum[max3] < sum[max2]) {
+                    max3 = n;
+                } else if (sum[max4] < sum[n] && sum[max4] < sum[max3]) {
+                    max4 = n;
+                } else if (sum[max5] < sum[n] && sum[max5] < sum[max4]) {
+                    max5 = n;
+                } else if (sum[max6] < sum[n] && sum[max6] < sum[max5]) {
+                    max6 = n;
                 }
             }
-            key = max - 4;//adjust key accordingly e = 4*/
+            if (max2 - max == 14 || max2 - max == -14) {
+                key = max - 4;
+            } else if (max2 - max == 3 || max2 - max == -3) {
+                key = max - 8;
+            } else if (max2 - max == 18 || max2 - max == -18) {
+                key = max - 19;
+            } else if (max2 - max == 9 || max2 - max == -9) {
+                key = max - 4;
+            } else {
+                key = max - 4;//adjust key accordingly e = 4*/
+           }
+
         }                                           //ENDIF
         printf("Key: %d Operation: %d\n", key, i);  //print key and function code for personal checking
         n = 0;
@@ -146,6 +169,48 @@ int main() {
                 Omessage[n] = temp;                         //output at n is this character
             }                                               //ENDLOOP
         } else if (i == 4) {                                //user wants to decode substitution
+            /*for () {
+                for (n = 0; Imessage[n] != '\0'; n++) { //loop starting counter n at zero, incrementing by 1 until string ends. this loop counts the occurence of all characters
+                    temp = Imessage[n];                 //temporary character
+                    if (temp >= 'A' && temp <= 'Z') {   //character is upper case letter
+                        y = temp - 'A';                 //y is number of letters position in the alphabet
+                        sum[y]++;                       //increment sum of element y by one
+                    } else if (temp >= 'a' && temp <= 'z') {    //character is lower case letter
+                        y = temp - 'a';                         //letters position in alphabet
+                        sum[y]++;                               //increment sum of letter
+                    }                                           //ENDIF
+                }                                               //ENDLOOP
+                max = 0;
+                int max2 = 0, max3 = 0, max4 = 0, max5 = 0, max6 = 0;
+            //etaoin   ietl
+                for (n = 0; n < 26; n++) {//find which letter occurs most
+                    if (sum[max] < sum[n]) {
+                        max = n;
+                    } else if (sum[max2] < sum[n] && sum[max2] < sum[max]) {
+                        max2 = n;
+                    } else if (sum[max3] < sum[n] && sum[max3] < sum[max2]) {
+                        max3 = n;
+                    } else if (sum[max4] < sum[n] && sum[max4] < sum[max3]) {
+                        max4 = n;
+                    } else if (sum[max5] < sum[n] && sum[max5] < sum[max4]) {
+                        max5 = n;
+                    } else if (sum[max6] < sum[n] && sum[max6] < sum[max5]) {
+                        max6 = n;
+                    }
+                }
+                if (max2 - max == 14 || max2 - max == -14) {
+                    key = max - 4;
+                } else if (max2 - max == 3 || max2 - max == -3) {
+                    key = max - 8;
+                } else if (max2 - max == 18 || max2 - max == -18) {
+                    key = max - 19;
+                } else if (max2 - max == 9 || max2 - max == -9) {
+                    key = max - 4;
+                } else {
+                    key = max - 4;//adjust key accordingly e = 4
+                }
+            }*/
+
             for (n = 0; Imessage[n] != '\0'; n++) {         //loop starting a counter at 0 with increment of 1 until input value is NUL (end of string)
                 temp = Imessage[n];                         //temporary character is input at position n
                 if (temp == alphabet[0]) {                  //character is same at key position 1
