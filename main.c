@@ -72,25 +72,48 @@ int main() {
                     max6 = n;
                 }
             }
-            for (x = 0; x < 33; x++) {
+            printf("Operation is: %d\n", i);
+            printf("In order: no key, 6 most likely keys, all posible\n");
+            for (x = 0; x < 32; x++) {
                 if (x == 0) {
                     key = 0;
                 } else if (x == 1) {
                     key = max - 4;
+                    if (key < 0) {
+                        key = 26 + key;
+                    }
                 } else if (x == 2) {
-                    key = max - 2; 
+                    key = max - 19;
+                    if (key < 0) {
+                        key = 26 + key;
+                    }
                 } else if (x == 3) {
-                    key = max - 3;
+                    key = max;
+                    if (key < 0) {
+                        key = 26 + key;
+                    }
                 } else if (x == 4) {
-                    key = max - 4;
+                    key = max - 14;
+                    if (key < 0) {
+                        key = 26 + key;
+                    }
                 } else if (x == 5) {
-                    key = max - 5;
+                    key = max - 8;
+                    if (key < 0) {
+                        key = 26 + key;
+                    }
                 } else if (x == 6) {
-                    key = max - 6;
+                    key = max - 13;
+                    if (key < 0) {
+                        key = 26 + key;
+                    }
                 } else {
                     key = x - 6;
+                    if (key < 0) {
+                        key = 26 + key;
+                    }
                 }
-                printf("Key: %d Operation: %d: ", key, i);  //print key and function code for personal checking
+                printf("%d= Key: %d ", x + 1, key);  //print key and function code for personal checking
                 n = 0;
                 for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL (the string ends)
                     temp = Imessage[n];                     //temporary character is character of input at position n
@@ -111,6 +134,9 @@ int main() {
                     }                                         //ENDIF
                 }
                 printf("Decryption is: %s\n", Omessage);            //print the resulting decryption
+                if (x ==6) {
+                    printf("\n");
+                }
             }
 
 
