@@ -20,7 +20,7 @@ To operate program follow steps:
     Edit the first line of key.txt (with no spaces or lines before) and use the below instructions for rotation & substitution ciphers respectively
         Rotation ciphers: a number from 0-25 (0 will produce no change in text) and no letters (any alphabet use will result in a key of 0)
         Substitution: a string of 26 capital letters, correlating to each letter to be substituted. (ie BCD... will substitute A for B, B for C etc.)
-        For decoding without key write "null" (only working for rotation)
+        For decoding without key use 0 (only working for rotation)
         
 3-Input text:
     Write your input text that is to be encoded or decoded in the file "input.txt". Only line 1 will be read, and more lines will result in an error where nothing gets printed to the terminal.
