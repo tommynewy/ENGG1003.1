@@ -41,10 +41,11 @@ int main() {
             }                                       //ENDIF
         }                                           //ENDLOOP
     } else if (i == 2) {                            //user wants rotation decyption
-        if ((0 > key || key > 25) && key != 80) {   //check key is within range
+        int max2 = 0, max3 = 0, max4 = 0, max5 = 0, max6 = 0, x = 0;
+        if (0 > key || key > 25) {   //check key is within range
             printf("Error with value of key. %d is not in the range 0-25", key);
             return 0;                               //print error & end program
-        } else if (cue != NULL) {                   //if key is NULL (ie no key given)
+        } else if (key == 0) {                   //if key is NULL (ie no key given)
             for (n = 0; Imessage[n] != '\0'; n++) { //loop starting counter n at zero, incrementing by 1 until string ends. this loop counts the occurence of all characters
                 temp = Imessage[n];                 //temporary character
                 if (temp >= 'A' && temp <= 'Z') {   //character is upper case letter
@@ -56,8 +57,6 @@ int main() {
                 }                                           //ENDIF
             }                                               //ENDLOOP
             max = 0;
-            int max2 = 0, max3 = 0, max4 = 0, max5 = 0, max6 = 0;
-            //etaoin   ietl
             for (n = 0; n < 26; n++) {//find which letter occurs most
                 if (sum[max] < sum[n]) {
                     max = n;
@@ -73,38 +72,69 @@ int main() {
                     max6 = n;
                 }
             }
-            if (max2 - max == 14 || max2 - max == -14) {
-                key = max - 4;
-            } else if (max2 - max == 3 || max2 - max == -3) {
-                key = max - 8;
-            } else if (max2 - max == 18 || max2 - max == -18) {
-                key = max - 19;
-            } else if (max2 - max == 9 || max2 - max == -9) {
-                key = max - 4;
-            } else {
-                key = max - 4;//adjust key accordingly e = 4*/
-           }
+            for (x = 0; x < 33; x++) {
+                if (x == 0) {
+                    key = 0;
+                } else if (x == 1) {
+                    key = max - 4;
+                } else if (x == 2) {
+                    key = max - 2; 
+                } else if (x == 3) {
+                    key = max - 3;
+                } else if (x == 4) {
+                    key = max - 4;
+                } else if (x == 5) {
+                    key = max - 5;
+                } else if (x == 6) {
+                    key = max - 6;
+                } else {
+                    key = x - 6;
+                }
+                printf("Key: %d Operation: %d: ", key, i);  //print key and function code for personal checking
+                n = 0;
+                for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL (the string ends)
+                    temp = Imessage[n];                     //temporary character is character of input at position n
+                    if (temp >= 'A' && temp <= 'Z') {       //if the character is a capital letter (between A and Z in the ASCII chart)
+                        temp = temp - key;                  //take key from character
+                        if (temp < 'A') {                   //if this character is no longer a capital letter (beyond A in the ASCII chart)
+                            temp = temp + 'Z' - 'A' + 1;    //character + Z (90) - A (65) results in leftover from key (+1 for start at 0)
+                        }                                   //ENDIF
+                        Omessage[n] = temp;                 //output at position n is this character
+                    } else if (temp >= 'a' && temp <= 'z') {//if the character is a lower case letter
+                        temp = temp - key;                  //take key from character
+                        if (temp < 'a') {                   //if this chracter is no longer a lower case letter
+                            temp = temp + 'z' - 'a' + 1;    //character + z - a (leftover key) +1 (start at 0)
+                        }                                   //ENDIF
+                        Omessage[n] = temp;                 //output at position n is this character
+                    } else {                                //if the character is anything else (spaces, punctuation)
+                        Omessage[n] = temp;                 //output at position n is this character
+                    }                                         //ENDIF
+                }
+                printf("Decryption is: %s\n", Omessage);            //print the resulting decryption
+            }
 
-        }                                           //ENDIF
-        printf("Key: %d Operation: %d\n", key, i);  //print key and function code for personal checking
-        n = 0;
-        for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL (the string ends)
-            temp = Imessage[n];                     //temporary character is character of input at position n
-            if (temp >= 'A' && temp <= 'Z') {       //if the character is a capital letter (between A and Z in the ASCII chart)
-                temp = temp - key;                  //take key from character
-                if (temp < 'A') {                   //if this character is no longer a capital letter (beyond A in the ASCII chart)
-                    temp = temp + 'Z' - 'A' + 1;    //character + Z (90) - A (65) results in leftover from key (+1 for start at 0)
-                }                                   //ENDIF
-                Omessage[n] = temp;                 //output at position n is this character
-            } else if (temp >= 'a' && temp <= 'z') {//if the character is a lower case letter
-                temp = temp - key;                  //take key from character
-                if (temp < 'a') {                   //if this chracter is no longer a lower case letter
-                    temp = temp + 'z' - 'a' + 1;    //character + z - a (leftover key) +1 (start at 0)
-                }                                   //ENDIF
-                Omessage[n] = temp;                 //output at position n is this character
-            } else {                                //if the character is anything else (spaces, punctuation)
-                Omessage[n] = temp;                 //output at position n is this character
-            }                                       //ENDIF
+
+        } else {                                           //ENDIF
+            printf("Key: %d Operation: %d\n", key, i);  //print key and function code for personal checking
+            n = 0;
+            for (n = 0; Imessage[n] != '\0'; n++) {     //a loop starting the counter of n at 0, incrementing by 1 each loop, and until the character at Imessage[n] is NUL (the string ends)
+                temp = Imessage[n];                     //temporary character is character of input at position n
+                if (temp >= 'A' && temp <= 'Z') {       //if the character is a capital letter (between A and Z in the ASCII chart)
+                    temp = temp - key;                  //take key from character
+                    if (temp < 'A') {                   //if this character is no longer a capital letter (beyond A in the ASCII chart)
+                        temp = temp + 'Z' - 'A' + 1;    //character + Z (90) - A (65) results in leftover from key (+1 for start at 0)
+                    }                                   //ENDIF
+                    Omessage[n] = temp;                 //output at position n is this character
+                } else if (temp >= 'a' && temp <= 'z') {//if the character is a lower case letter
+                    temp = temp - key;                  //take key from character
+                    if (temp < 'a') {                   //if this chracter is no longer a lower case letter
+                        temp = temp + 'z' - 'a' + 1;    //character + z - a (leftover key) +1 (start at 0)
+                    }                                   //ENDIF
+                    Omessage[n] = temp;                 //output at position n is this character
+                } else {                                //if the character is anything else (spaces, punctuation)
+                    Omessage[n] = temp;                 //output at position n is this character
+                }                                         //ENDIF
+            }
         }                                           //ENDLOOP
     } else if (i == 3 || i ==4) {                   //user wants something with substitution
         printf("Key: %s Operation: %d\n", alphabet, i);     //print key and function code for personal checking
